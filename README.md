@@ -23,7 +23,7 @@ This project is organized to enforce separation of concerns and maintainability.
 ```
 ├── cmd/
 │ └── server/                                   # Application entry point
-│ └── main.go
+│ │ └── main.go
 ├── docker/                                     # Docker & Compose setup
 │ ├── Dockerfile
 │ └── docker-compose.yml
