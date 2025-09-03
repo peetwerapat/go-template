@@ -20,6 +20,7 @@ This project is organized to enforce separation of concerns and maintainability.
 
 ## Project Structure
 
+```
 ├── cmd/
 │ └── server/                                   # Application entry point
 │ └── main.go
@@ -67,3 +68,4 @@ This project is organized to enforce separation of concerns and maintainability.
 ├── README.md
 ├── go.mod
 └── go.sum
+```
