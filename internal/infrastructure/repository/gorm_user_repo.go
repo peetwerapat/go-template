@@ -1,4 +1,4 @@
-package db
+package repository
 
 import (
 	"github.com/peetwerapat/go-template/internal/domain"
@@ -14,20 +14,15 @@ func NewGormUserRepository(db *gorm.DB) repository.UserRepository {
 	return &GormUserRepository{DB: db}
 }
 
+func (r *GormUserRepository) CreateUser(user *domain.User) error {
+	return r.DB.Create(user).Error
+}
+
 func (r *GormUserRepository) GetUserById(id uint) (*domain.User, error) {
 	var u domain.User
 	if err := r.DB.First(&u, id).Error; err != nil {
 		return nil, err
 	}
 
-	return &domain.User{
-		ID:        u.ID,
-		Email:     u.Email,
-		FirstName: u.FirstName,
-		LastName:  u.LastName,
-	}, nil
-}
-
-func (r *GormUserRepository) CreateUser(user *domain.User) error {
-	return r.DB.Create(user).Error
+	return &u, nil
 }

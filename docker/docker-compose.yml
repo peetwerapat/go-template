@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - learnhub_go_postgres_data:/var/lib/postgresql/data
+      - go_template_postgres_data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
     container_name: 'go-template-db-1'
@@ -17,7 +17,7 @@ services:
     image: redis:latest
     restart: unless-stopped
     volumes:
-      - learnhub_go_redis_data:/data
+      - go_template_redis_data:/data
     ports:
       - '6379:6379'
     container_name: 'go-template-redis-1'
@@ -36,6 +36,6 @@ services:
   #     - ../.env
 
 volumes:
-  learnhub_go_postgres_data:
-  learnhub_go_redis_data:
+  go_template_postgres_data:
+  go_template_redis_data:
 

@@ -3,16 +3,14 @@ package router
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/peetwerapat/go-template/config"
 	_ "github.com/peetwerapat/go-template/docs"
-	"github.com/peetwerapat/go-template/internal/infrastructure/db"
+	"github.com/peetwerapat/go-template/internal/infrastructure/di"
 	"github.com/peetwerapat/go-template/internal/interface/controller"
-	"github.com/peetwerapat/go-template/internal/usecase"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func InitRouter() *gin.Engine {
+func InitRouter(appUc *di.AppUseCase) *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -25,15 +23,9 @@ func InitRouter() *gin.Engine {
 		AllowCredentials: true,
 	}))
 
-	// Init repositories
-	userRepo := db.NewGormUserRepository(config.DB)
-
-	// Init usecases
-	userUC := usecase.NewUserUsecase(userRepo)
-
-	// Init controllers
-	controller.NewUserController(r, userUC)
-	controller.NewAuthController(r, userUC)
+	// Auth Controller
+	authController := controller.NewAuthController(appUc.UserUc)
+	r.POST("/register", authController.CreateUser)
 
 	return r
 }

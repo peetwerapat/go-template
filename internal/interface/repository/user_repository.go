@@ -5,6 +5,6 @@ import (
 )
 
 type UserRepository interface {
-	GetUserById(id uint) (*domain.User, error)
 	CreateUser(user *domain.User) error
+	GetUserById(id uint) (*domain.User, error)
 }

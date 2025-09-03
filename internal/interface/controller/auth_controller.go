@@ -15,10 +15,8 @@ type AuthController struct {
 	userUC *usecase.UserUsecase
 }
 
-func NewAuthController(r *gin.Engine, uc *usecase.UserUsecase) {
-	ctrl := &AuthController{userUC: uc}
-
-	r.POST("/register", ctrl.CreateUser)
+func NewAuthController(uc *usecase.UserUsecase) *AuthController {
+	return &AuthController{userUC: uc}
 }
 
 // @Summary Create user

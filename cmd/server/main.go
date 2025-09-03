@@ -2,17 +2,17 @@ package main
 
 import (
 	"log"
-	"os"
 
-	"github.com/joho/godotenv"
-	"github.com/peetwerapat/go-template/config"
 	_ "github.com/peetwerapat/go-template/docs"
-	"github.com/peetwerapat/go-template/pkg/router"
+	"github.com/peetwerapat/go-template/internal/infrastructure/db"
+	"github.com/peetwerapat/go-template/internal/infrastructure/di"
+	"github.com/peetwerapat/go-template/internal/infrastructure/router"
+	"github.com/peetwerapat/go-template/pkg/config"
 )
 
-// @title LearnHub Go API
+// @title Go Template API
 // @version 1.0
-// @description This is LearnHub API documentation.
+// @description This is Go Template API documentation.
 // @BasePath /
 // @securityDefinitions.apikey BearerAuth
 // @in header
@@ -20,23 +20,24 @@ import (
 func main() {
 	log.Println("Starting application")
 
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found")
-	}
+	cfg := config.Load()
 
-	if err := config.ConnectDatabase(); err != nil {
+	dbConn, err := db.ConnectDatabase(cfg.DBHost, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBPort)
+	if err != nil {
 		log.Fatalf("Database connection failed: %v", err)
 	}
 
-	r := router.InitRouter()
+	// entities := []interface{}{}
+	// if err := db.AutoMigrate(dbConn, entities...); err != nil {
+	// 	log.Fatalf("Database migration failed: %v", err)
+	// }
 
-	port := os.Getenv("APP_PORT")
-	if port == "" {
-		port = "8080"
-	}
-	log.Printf("Server starting on port %s", port)
+	appUC := di.InitApp(dbConn)
 
-	if err := r.Run(":" + port); err != nil {
+	r := router.InitRouter(appUC)
+
+	log.Printf("Server starting on port %s", cfg.AppPort)
+	if err := r.Run(":" + cfg.AppPort); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
 }

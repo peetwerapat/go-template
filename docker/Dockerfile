@@ -20,4 +20,3 @@ WORKDIR /
 COPY --from=builder /app/main .
 EXPOSE 80
 ENTRYPOINT ["/main"]
-

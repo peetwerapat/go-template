@@ -16,10 +16,6 @@ func NewUserUsecase(repo repository.UserRepository) *UserUsecase {
 	return &UserUsecase{userRepo: repo}
 }
 
-func (uc *UserUsecase) GetUserById(id uint) (*domain.User, error) {
-	return uc.userRepo.GetUserById(id)
-}
-
 func (uc *UserUsecase) CreateUser(user *domain.User) error {
 
 	if len(user.Password) < 6 {
@@ -34,4 +30,8 @@ func (uc *UserUsecase) CreateUser(user *domain.User) error {
 	user.Password = string(hashed)
 
 	return uc.userRepo.CreateUser(user)
+}
+
+func (uc *UserUsecase) GetUserById(id uint) (*domain.User, error) {
+	return uc.userRepo.GetUserById(id)
 }
