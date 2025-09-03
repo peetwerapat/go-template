@@ -1,12 +1,10 @@
-# Database config from .env
-DB_HOST ?= localhost
-DB_PORT ?=5432
-DB_NAME ?=trucker_marketplace_go_postgres
-DB_USER ?=postgres_user
-DB_PASS ?=postgres_password
-DB_URL = postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
+# Load .env variables
+ifneq (,$(wildcard .env))
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
 
-# Path to migration files
+DB_URL = postgres://$(DB_USER):$(DB_PASS)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
 MIGRATIONS_PATH = migrations
 
 # -----------------------
@@ -23,8 +21,8 @@ migrate-down:
 
 # Force version (fix dirty db)
 migrate-force:
-	@echo "Enter version to force:"
-	@read version; \
+	@echo "Enter version to force:"; \
+	read version; \
 	migrate -path $(MIGRATIONS_PATH) -database "$(DB_URL)" force $$version
 
 # Reset database (down all + up)
