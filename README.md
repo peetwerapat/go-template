@@ -65,6 +65,7 @@ This project is organized to enforce separation of concerns and maintainability.
 ├── .env                                        # Environment variables (hidden from Git)
 ├── .gitignore
 ├── .golangci.yml                               # Linter configuration
+├── Makefile                                    # Migrateion script cli
 ├── README.md
 ├── go.mod
 └── go.sum
