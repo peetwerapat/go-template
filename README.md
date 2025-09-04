@@ -39,7 +39,7 @@ This project is organized to enforce separation of concerns and maintainability.
 │ │ ├── repository/                             # GORM repository implementations
 │ │ │ └── gorm_user_repo.go
 │ │ └── router/                                 # Gin router setup
-│ │ └── router.go
+│ │ │ └── router.go
 │ ├── interface/                                # Adapters (controllers, repositories)
 │ │ ├── controller/
 │ │ │ ├── dto/                                  # Request/response DTOs
@@ -47,9 +47,9 @@ This project is organized to enforce separation of concerns and maintainability.
 │ │ │ │ └── pagination_dto.go
 │ │ │ └── auth_controller.go
 │ │ └── repository/                             # Repository interface contracts
-│ │ └── user_repository.go
+│ │ │ └── user_repository.go
 │ └── usecase/                                  # Business use cases
-│ └── user_usecase.go
+│ │ │ └── user_usecase.go
 ├── migrations/                                 # SQL migration files
 │ ├── 000001_create_users_table.up.sql
 │ └── 000001_create_users_table.down.sql
@@ -59,8 +59,8 @@ This project is organized to enforce separation of concerns and maintainability.
 │ ├── response/                                 # Standard API responses
 │ │ └── response.go
 │ └── utils/                                    # Utility functions
-│ ├── is_valid_email.go
-│ └── pagination.go
+│ │ └── is_valid_email.go
+│ │ └── pagination.go
 ├── .dockerignore
 ├── .env                                        # Environment variables (hidden from Git)
 ├── .gitignore
