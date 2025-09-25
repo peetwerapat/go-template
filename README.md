@@ -36,8 +36,8 @@ This project is organized to enforce separation of concerns and maintainability.
 │ │ │ └── db.go
 │ │ ├── di/                                     # Dependency injection
 │ │ │ └── app.go
-│ │ ├── repository/                             # GORM repository implementations
-│ │ │ └── gorm_user_repo.go
+│ │ ├── repository_impl/                        # Repository implementations
+│ │ │ └── user_repository_implement.go
 │ │ └── router/                                 # Gin router setup
 │ │ │ └── router.go
 │ ├── interface/                                # Adapters (controllers, repositories)
@@ -47,7 +47,7 @@ This project is organized to enforce separation of concerns and maintainability.
 │ │ │ │ └── pagination_dto.go
 │ │ │ └── auth_controller.go
 │ │ └── repository/                             # Repository interface contracts
-│ │ │ └── user_repository.go
+│ │ │ └── user_repository_interface.go
 │ └── usecase/                                  # Business use cases
 │ │ │ └── user_usecase.go
 ├── migrations/                                 # SQL migration files
@@ -62,7 +62,7 @@ This project is organized to enforce separation of concerns and maintainability.
 │ │ └── is_valid_email.go
 │ │ └── pagination.go
 ├── .dockerignore
-├── .env                                        # Environment variables (hidden from Git)
+├── .env.local                                  # Environment variables (hidden from Git)
 ├── .gitignore
 ├── .golangci.yml                               # Linter configuration
 ├── Makefile                                    # Migrateion script cli

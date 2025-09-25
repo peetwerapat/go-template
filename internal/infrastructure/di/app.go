@@ -1,7 +1,7 @@
 package di
 
 import (
-	"github.com/peetwerapat/go-template/internal/infrastructure/repository"
+	"github.com/peetwerapat/go-template/internal/infrastructure/repository_impl"
 	"github.com/peetwerapat/go-template/internal/usecase"
 	"gorm.io/gorm"
 )
@@ -11,7 +11,7 @@ type AppUseCase struct {
 }
 
 func InitApp(dbConn *gorm.DB) *AppUseCase {
-	userRepo := repository.NewGormUserRepository(dbConn)
+	userRepo := repository_impl.NewUserRepositoryImplement(dbConn)
 	userUC := usecase.NewUserUsecase(userRepo)
 
 	return &AppUseCase{

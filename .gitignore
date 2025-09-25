@@ -20,5 +20,5 @@ vendor/
 *.log
 
 # Others
-.env
+.env*
 docs
